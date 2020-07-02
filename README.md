@@ -6,4 +6,4 @@ Numerical Methods in Flood Irrigation
 
 An open book to learn numerical methods for simulation of flood irrigation.
 
-[HTML book](main.html)
+[HTML book](src/main.html)
