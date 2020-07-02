@@ -1,4 +1,4 @@
-Numerical Methods In Flood Irrigation
+Numerical Methods in Flood Irrigation
 =====================================
 
 :[gb]:[english](README.md) :[es]:[spanish](README.es.md)

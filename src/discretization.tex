@@ -1,0 +1,36 @@
+\chapter{Discretization}
+
+The continuous variables have to be discretized in a finite number of elements
+in order to be able to solve the problem in a computer. The following increments
+are defined:
+\begin{description}
+	\item[$\Delta t^{n+\frac12}=t_{n+1}-t_n$]: temporal increments,
+	\item[$\delta x_{i+\frac12}=x_{i+1}-x_i$]: spatial increments.
+\end{description}
+
+We go to describe two classical numerical approach families: finite differences
+and finite volumes.
+
+\section{Finite differences}
+
+Finite differences discretizations use the values defined at determined points
+and times. The following notation is used:
+\begin{description}
+	\item[$\vec{u}_i^n=\vec{u}\left(x_i,\,t_n\right)$]: vector of variables
+		discretized at a determined point and time.
+\end{description}
+
+\section{Finite volumes}
+
+In finite volumes the spatial averages of the variables are defined:
+\begin{description}
+	\item[$\displaystyle\vec{U}_i^n=\frac1{\delta x}\,
+		\int_{x_i-\frac12\,\delta x}^{x_i+\frac12\,\delta x}
+		\vec{u}\left(x,\,t_n\right)\,dx$]:
+		vector of averaged variables integrated at a time around a point.
+\end{description}
+
+\section{Issues and adventages}
+
+
+

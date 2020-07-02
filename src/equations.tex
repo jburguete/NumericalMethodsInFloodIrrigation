@@ -1,0 +1,90 @@
+\chapter{Equations}
+
+\section{Conservative differential form}
+
+We are interested in solving equations of propagation type. In conservative
+form in 1D:
+\EQ
+{
+	\frac{\partial\vec{u}(x,\,t)}{\partial t}
+	+\frac{d\vec{f}\left(x,\,t,\,\vec{u}(x,\,t)\right)}{dx}
+	=\vec{s}\left(x,\,t,\,\vec{u}(x,\,t)\right).
+}{EqIDConservative}
+The following notation is used:
+\begin{description}
+	\item[$\vec{f}$]: vector of fluxes,
+	\item[$\vec{s}$]: vector of source terms,
+	\item[$t$]: time,
+	\item[$\vec{u}$]: vector of variables,
+	\item[$x$]: $x$-coordinate.
+\end{description}
+
+This differential equations system can be integrated in the spatial domain
+$x\in[0,L]$ and in the time interval $t\in[0,T]$, with
+\begin{description}
+	\item[$L$]: domain length,
+	\item[$T$]: final time.
+\end{description}
+Then,
+\[
+	\int_0^Tdt\,\int_0^Ldx\,\left[
+	\frac{\partial\vec{u}(x,\,t)}{\partial t}
+	+\frac{d\vec{f}\left(x,\,t,\,\vec{u}(x,\,t)\right)}{dx}
+	=\vec{s}\left(x,\,t,\,\vec{u}(x,\,t)\right)\right]\Rightarrow
+\]
+\EQ
+{
+	\int_0^Ldx\,\left[\vec{u}(x,\,T)-\vec{u}(x,\,0)\right]
+	+\int_0^Tdt\,\left[\vec{f}(L,\,t)-\vec{f}(0,\,t)\right]
+	=\int_0^Tdt\,\int_0^Ldx\,\vec{s}\left(x,\,t,\,\vec{u}(x,\,t)\right)
+}{EqIDIntegrated}
+
+Defining the vectors:
+\begin{description}
+	\item[$\vec{M}_{initial}=\int_0^Ldx\,\vec{u}(x,\,0)$]: initial mass vector,
+	\item[$\vec{M}_{final}=\int_0^Ldx\,\vec{u}(x,\,T)$]: final mass vector,
+	\item[$\vec{F}_{in}=\int_0^Tdt\,\vec{f}(0,\,t)$]: input flux contributions
+		vector,
+	\item[$\vec{F}_{out}=\int_0^Tdt\,\vec{f}(L,\,t)$]: output flux contributions
+		vector,
+	\item[$\vec{S}
+		=\int_0^Tdt\,\int_0^Ldx\,\vec{s}\left(x,\,t,\,\vec{u}(x,\,t)\right)$]:
+		source contributions vector,
+\end{description}
+the equation (\ref{EqIDIntegrated}) can be expressed as:
+\EQ
+{
+	\vec{M}_{final}=\vec{M}_{initial}+\vec{F}_{in}-\vec{F}_{out}+\vec{S},
+}{EqIDConservation}
+that is, the mass variations are addition of the source contributions plus the
+input flux contributions minus the output flux contributions.
+
+\section{Non-conservative form}
+
+The equation (\ref{EqIDConservative}) can be simplified by developing the
+derivatives:
+\EQ
+{
+	\frac{d\vec{f}}{dx}
+	=\left.\frac{\partial\vec{f}}{\partial x}\right|_{\vec{u}=const}
+	+\left.\frac{\partial\vec{f}}{\partial\vec{u}}\right|_{x=const}
+	\,\frac{\partial\vec{u}}{x}
+	=\left.\frac{\partial\vec{f}}{\partial x}\right|_{\vec{u}}
+	+\mathbf{J}\,\frac{\partial\vec{u}}{\partial x}
+}{EqIDFluxDerivative}
+with:
+\begin{description}
+	\item[$\mathbf{J}
+		=\left.\frac{\partial\vec{f}}{\partial\vec{u}}\right|_{x=const}$]: the
+		Jacobian matrix.
+\end{description}
+Then:
+\EQ
+{
+	\frac{\partial\vec{u}(x,\,t)}{\partial t}
+	+\mathbf{J}\left(x,\,t,\,\vec{u}(x,\,t)\right)
+	\,\frac{\partial\vec{u}(x,\,t)}{\partial x}
+	=\vec{s}\left(x,\,t,\,\vec{u}(x,\,t)\right)
+	-\left.\frac{\partial\vec{f}\left(x,\,t,\,\vec{u}(x,\,t)\right)}{\partial x}
+	\right|_{\vec{u}=const}.
+}{EqIDNonConservative}

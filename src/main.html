@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Numerical Methods in Flood Irrigation</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)"> 
+<!-- html,mathjax --> 
+<meta name="src" content="main.tex"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+ <script> window.MathJax = { tex: { tags: "ams", inlineMath: [ ["\\\(","\\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true, processEnvironments: true, packages: ['base', 'color', 'ams'] }, loader: { load: ['[tex]/color', '[tex]/ams'] } }; </script> 
+ <script type="text/javascript" async="async" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>  
+</head><body 
+>
+   <div class="maketitle">
+
+
+
+
+<h2 class="titleHead">Numerical Methods in Flood Irrigation</h2>
+<div class="author" ><span 
+class="cmr-12x-x-120">Javier Burguete</span></div><br />
+<div class="date" ><span 
+class="cmr-12x-x-120">July 2, 2020</span></div>
+
+   </div>
+
+   <h2 class="likechapterHead"><a 
+ id="x1-1000"></a>Contents</h2>
+   <div class="tableofcontents">
+   <span class="chapterToc" >1 <a 
+href="#x1-20001" id="QQ2-1-2">Equations</a></span>
+<br />   &#x00A0;<span class="sectionToc" >1.1 <a 
+href="#x1-30001.1" id="QQ2-1-3">Conservative differential form</a></span>
+<br />   &#x00A0;<span class="sectionToc" >1.2 <a 
+href="#x1-40001.2" id="QQ2-1-4">Non-conservative form</a></span>
+<br />   <span class="chapterToc" >2 <a 
+href="#x1-50002" id="QQ2-1-5">Discretization</a></span>
+<br />   &#x00A0;<span class="sectionToc" >2.1 <a 
+href="#x1-60002.1" id="QQ2-1-6">Finite differences</a></span>
+<br />   &#x00A0;<span class="sectionToc" >2.2 <a 
+href="#x1-70002.2" id="QQ2-1-7">Finite volumes</a></span>
+<br />   &#x00A0;<span class="sectionToc" >2.3 <a 
+href="#x1-80002.3" id="QQ2-1-8">Issues and adventages</a></span>
+   </div>
+
+
+
+
+   <h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;1</span><br /><a 
+ id="x1-20001"></a>Equations</h2>
+   <h3 class="sectionHead"><span class="titlemark">1.1   </span> <a 
+ id="x1-30001.1"></a>Conservative differential form</h3>
+<!--l. 5--><p class="noindent" >We are interested in solving equations of propagation type. In conservative form
+in 1D: \begin{equation} \frac{\partial \vec{u}(x,\,t)}{\partial t} +\frac{d\vec{f}\left (x,\,t,\,\vec{u}(x,\,t)\right )}{dx} =\vec{s}\left (x,\,t,\,\vec{u}(x,\,t)\right ). \end{equation}
+ The following notation is used:
+      <dl class="description"><dt class="description">
+\(\vec{f}\) </dt><dd 
+class="description">: vector of fluxes,
+      </dd><dt class="description">
+\(\vec{s}\) </dt><dd 
+class="description">: vector of source terms,
+      </dd><dt class="description">
+\(t\) </dt><dd 
+class="description">: time,
+      </dd><dt class="description">
+\(\vec{u}\) </dt><dd 
+class="description">: vector of variables,
+      </dd><dt class="description">
+\(x\) </dt><dd 
+class="description">: \(x\)-coordinate.</dd></dl>
+<!--l. 22--><p class="indent" >   This differential equations system can be integrated in the spatial domain \(x\in [0,L]\) and
+in the time interval \(t\in [0,T]\), with
+      <dl class="description"><dt class="description">
+\(L\) </dt><dd 
+class="description">: domain length,
+      </dd><dt class="description">
+\(T\) </dt><dd 
+class="description">: final time.</dd></dl>
+<!--l. 28--><p class="noindent" >Then, \[ \int _0^Tdt\,\int _0^Ldx\,\left [ \frac{\partial \vec{u}(x,\,t)}{\partial t} +\frac{d\vec{f}\left (x,\,t,\,\vec{u}(x,\,t)\right )}{dx} =\vec{s}\left (x,\,t,\,\vec{u}(x,\,t)\right )\right ]\Rightarrow \] \begin{equation} \int _0^Ldx\,\left [\vec{u}(x,\,T)-\vec{u}(x,\,0)\right ] +\int _0^Tdt\,\left [\vec{f}(L,\,t)-\vec{f}(0,\,t)\right ] =\int _0^Tdt\,\int _0^Ldx\,\vec{s}\left (x,\,t,\,\vec{u}(x,\,t)\right ) \end{equation}
+<!--l. 42--><p class="indent" >   Defining the vectors:
+      <dl class="description"><dt class="description">
+\(\vec{M}_{initial}=\int _0^Ldx\,\vec{u}(x,\,0)\) </dt><dd 
+class="description">: initial mass vector,
+      </dd><dt class="description">
+\(\vec{M}_{final}=\int _0^Ldx\,\vec{u}(x,\,T)\) </dt><dd 
+class="description">: final mass vector,
+      </dd><dt class="description">
+\(\vec{F}_{in}=\int _0^Tdt\,\vec{f}(0,\,t)\) </dt><dd 
+class="description">: input flux contributions vector,
+
+      </dd><dt class="description">
+\(\vec{F}_{out}=\int _0^Tdt\,\vec{f}(L,\,t)\) </dt><dd 
+class="description">: output flux contributions vector,
+      </dd><dt class="description">
+\(\vec{S} =\int _0^Tdt\,\int _0^Ldx\,\vec{s}\left (x,\,t,\,\vec{u}(x,\,t)\right )\) </dt><dd 
+class="description">: source contributions vector,</dd></dl>
+<!--l. 54--><p class="noindent" >the equation (<a 
+href="#x1-30001.1">1.1<!--tex4ht:ref: EqIDIntegrated --></a>) can be expressed as: \begin{equation} \vec{M}_{final}=\vec{M}_{initial}+\vec{F}_{in}-\vec{F}_{out}+\vec{S}, \end{equation}
+ that is, the mass variations are addition of the source contributions plus the
+input flux contributions minus the output flux contributions.
+<!--l. 62--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">1.2   </span> <a 
+ id="x1-40001.2"></a>Non-conservative form</h3>
+<!--l. 64--><p class="noindent" >The equation (<a 
+href="#x1-30001.1">1.1<!--tex4ht:ref: EqIDConservative --></a>) can be simplified by developing the derivatives: \begin{equation} \frac{d\vec{f}}{dx} =\left .\frac{\partial \vec{f}}{\partial x}\right |_{\vec{u}=const} +\left .\frac{\partial \vec{f}}{\partial \vec{u}}\right |_{x=const} \,\frac{\partial \vec{u}}{x} =\left .\frac{\partial \vec{f}}{\partial x}\right |_{\vec{u}} +\mathbf{J}\,\frac{\partial \vec{u}}{x} \end{equation}
+ with:
+      <dl class="description"><dt class="description">
+\(\mathbf{J} =\left .\frac{\partial \vec{f}}{\partial \vec{u}}\right |_{x=const}\) </dt><dd 
+class="description">: the Jacobian matrix.</dd></dl>
+<!--l. 81--><p class="noindent" >Then: \begin{equation} \frac{\partial \vec{u}(x,\,t)}{\partial t} +\mathbf{J}\left (x,\,t,\,\vec{u}(x,\,t)\right ) \,\frac{\partial \vec{u}(x,\,t)}{dx} =\vec{s}\left (x,\,t,\,\vec{u}(x,\,t)\right ) -\left .\frac{\partial \vec{f}\left (x,\,t,\,\vec{u}(x,\,t)\right )}{\partial x} \right |_{\vec{u}=const}. \end{equation}
+
+
+
+   <h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;2</span><br /><a 
+ id="x1-50002"></a>Discretization</h2>
+<!--l. 3--><p class="noindent" >The continuous variables have to be discretized in a finite number of elements in
+order to be able to solve the problem in a computer. The following increments are
+defined:
+      <dl class="description"><dt class="description">
+\(\Delta t^{n+\frac 12}=t_{n+1}-t_n\) </dt><dd 
+class="description">: temporal increments,
+      </dd><dt class="description">
+\(\delta x_{i+\frac 12}=x_{i+1}-x_i\) </dt><dd 
+class="description">: spatial increments.</dd></dl>
+<!--l. 11--><p class="indent" >   We go to describe two classical numerical approach families: finite differences
+and finite volumes.
+   <h3 class="sectionHead"><span class="titlemark">2.1   </span> <a 
+ id="x1-60002.1"></a>Finite differences</h3>
+<!--l. 16--><p class="noindent" >Finite differences discretizations use the values defined at determined points and
+times. The following notation is used:
+      <dl class="description"><dt class="description">
+\(\vec{u}_i^n=\vec{u}\left (x_i,\,t_n\right )\) </dt><dd 
+class="description">: vector of variables discretized at a determined point and time.</dd></dl>
+<!--l. 23--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">2.2   </span> <a 
+ id="x1-70002.2"></a>Finite volumes</h3>
+<!--l. 25--><p class="noindent" >In finite volumes the spatial averages of the variables are defined:
+      <dl class="description"><dt class="description">
+\(\displaystyle \vec{U}_i^n=\frac 1{\delta x}\, \int _{x_i-\frac 12\,\delta x}^{x_i+\frac 12\,\delta x} \vec{u}\left (x,\,t_n\right )\,dx\) </dt><dd 
+class="description">: vector of averaged variables integrated at a time around a point.</dd></dl>
+<!--l. 33--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">2.3   </span> <a 
+ id="x1-80002.3"></a>Issues and adventages</h3>
+
+    
+</body></html> 
+
+
+
